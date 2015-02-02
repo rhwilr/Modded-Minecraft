@@ -137,7 +137,7 @@
  
    changedate=`expr $(date +%s -r /opt/minecraft/bevo/world/playerdata/$(ls -t /opt/minecraft/bevo/world/playerdata|head -n 1)) - $(date +%s -r /opt/backup/bevo/$(ls -t /opt/backup/bevo|head -n 1))`
    
-   if [ $changedate -lt 0 ] && [ $BACKUPPLAYERONLINE == 1 ] && [ "$1" -ne "force" ]; then
+   if [ $changedate -lt 100 ] && [ $BACKUPPLAYERONLINE == 1 ] && [ "$1" != "force" ]; then
       log "Skipping Backup because no Player was online..."
    else 
        
