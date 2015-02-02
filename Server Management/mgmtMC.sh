@@ -139,8 +139,8 @@
    
    if [ $changedate -lt 0 ] && [ $BACKUPPLAYERONLINE == 1 ] && [ "$1" -ne "force" ]; then
       log "Skipping Backup because no Player was online..."
-   else
-      
+   else 
+       
        time_start=$(date +"%s")       
        mc_saveoff
        
@@ -163,8 +163,11 @@
        
        log "Deleting old Backup..."
        cd $BACKUPPATH
-       find . -type f -mtime +${BACKUPDays} -delete
        
+       OLDBACKUP=`date -d "-${BACKUPDays} days" "+%Y-%m-%d"`
+       echo OLDBACKUP
+       find ${BACKUPPATH} -name "${WORLD}_${OLDBACKUP}*.tar.bz2" -print0 | xargs -0 rm
+       find ${BACKUPPATH} -name "snapshot_${OLDBACKUP}*.dif" -print0 | xargs -0 rm 
        log "Done."
        
        time_stop=$(date +"%s")       
